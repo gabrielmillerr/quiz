@@ -3,10 +3,17 @@ const ResultadoModel = require("../models/Resultado.model");
 class ResultadoControllers {
   async adicionarResultadoUser(req, res) {
     try {
-      const questao = await ResultadoModel.create(req.body);
-      console.log(questao);
-      res.status(201).json(questao)
+      const resultado = await ResultadoModel.create(req.body[0]);
+      res.status(201).json(resultado)
     } catch(error) {
+      res.send(error.resultado)
+    }
+  }
+  async buscarResultadoUsuarios(req, res) {
+    try {
+      const resultados = await ResultadoModel.find({});
+      res.status(201).json(resultados)
+    } catch (error) {
       res.send(error.message)
     }
   }

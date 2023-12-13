@@ -1,13 +1,16 @@
 import { createSlice } from "@reduxjs/toolkit"
 
+
 const initialState = {
   nome: "",
+  paginaAtual: "inicio",
   indexQuestaoAtual: 0,
   score: 0,
-  questions: [],
+  questions: [], 
   respostas: {
     nome: "",
-    answer: [],
+    acertos: 0,
+    answers: [],
   },
 }
 
@@ -15,33 +18,37 @@ const quizSlice = createSlice({
   name: "quiz",
   initialState,
   reducers: {
-    startQuiz: (state) => {
-      state.indexQuestaoAtual = 1;
-      state.score = 0;
+    alterarPagina: (state, action) => {
+      state.paginaAtual = action.payload
     },
     avancarQuestao: (state) => {
-      state.indexQuestaoAtual += 1
+      state.indexQuestaoAtual = state.indexQuestaoAtual + 1;
     },
     voltarQuestao: state => {
-      if(state.indexQuestaoAtual > 0) {
-        state.indexQuestaoAtual -= 1;
+      if(state.indexQuestaoAtual) {
+        state.indexQuestaoAtual = state.indexQuestaoAtual - 1;
       }
     },
     enviarResposta: (state, action) => {
-      const { answer, pergunta } = action.payload;
+      const { answers, pergunta } = action.payload;
       const { nome } = state;
 
-      if(answer.resposta) {
+      if(answers.resposta) {
         state.score += 1
       }
 
       state.respostas.nome = nome
-      state.respostas.answer.push({
+      state.respostas.acertos = state.score
+      state.respostas.answers.push({
           _perguntaId: pergunta._id,
-          _opcaoID: answer._id
+          _opcaoID: answers._id
       });
 
-      state.indexQuestaoAtual += 1;
+      state.indexQuestaoAtual = state.indexQuestaoAtual + 1;
+      
+      if(state.indexQuestaoAtual >= 5) {
+        state.paginaAtual = "resultado"
+      }
     },
     setQuestions: (state, action) => {
       state.questions = action.payload;
@@ -53,7 +60,7 @@ const quizSlice = createSlice({
 })
 
 export const { 
-  startQuiz,
+  alterarPagina,
   enviarResposta,
   setQuestions,
   avancarQuestao,

@@ -18,6 +18,10 @@ const resultSchema = new mongoose.Schema({
     type: String,
     required: true,
   },
+  acertos: {
+    type: Number,
+    required: true,
+  },
   answers: [answerSchema], // Array de respostas
 });
 

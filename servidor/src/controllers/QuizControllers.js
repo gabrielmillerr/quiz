@@ -13,7 +13,6 @@ class QuizControllers {
   async criarQuestao(req, res) {
     try {
       const questao = await QuizModel.create(req.body);
-      console.log(questao);
       res.status(201).json(questao);
     } catch (error) {
       res.send(error.message)

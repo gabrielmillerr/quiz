@@ -4,7 +4,7 @@ import GlobalStyles from "./styles/global"
 import { ThemeProvider } from "styled-components"
 import theme from './styles/theme'
 
-import { App } from "./App"
+import { QuizGame } from "./pages/QuizGame"
 import { Provider } from 'react-redux';
 import { store } from './redux/store';
 
@@ -13,7 +13,7 @@ ReactDOM.createRoot(document.getElementById('root')).render(
     <ThemeProvider theme={theme}>
       <GlobalStyles />
       <Provider store={store}>
-        <App />
+        <QuizGame />
       </Provider>
     </ThemeProvider>
   </React.StrictMode>
