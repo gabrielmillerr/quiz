@@ -8,7 +8,7 @@ import { ResultadoScreen } from "../../components/resultado/ResultadoScreen"
 import { ScoresScreen } from "../../components/tabelaScores";
 
 export const QuizGame = () => {
-  const paginaAtual = useSelector((state) => state.quiz.paginaAtual)
+  const paginaAtual = useSelector((state) => state.quizStates.quiz.paginaAtual)
 
   return (
     <Container className='principal'>

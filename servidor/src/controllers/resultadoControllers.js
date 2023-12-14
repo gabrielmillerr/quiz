@@ -3,6 +3,7 @@ const ResultadoModel = require("../models/Resultado.model");
 class ResultadoControllers {
   async adicionarResultadoUser(req, res) {
     try {
+      console.log("testee", req.body[0]);
       const resultado = await ResultadoModel.create(req.body[0]);
       res.status(201).json(resultado)
     } catch(error) {

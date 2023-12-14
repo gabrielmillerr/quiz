@@ -9,7 +9,7 @@ import { alterarPagina, setQuestions, setNome } from '../../redux/reducer/quizRe
 
 export function IniciarScreen() {
   const dispatch = useDispatch();
-  const nome = useSelector((state) => state.quiz.nome) 
+  const nome = useSelector((state) => state.quizStates.respostas.nome)
   
   const inicirQuiz = async () => {
     

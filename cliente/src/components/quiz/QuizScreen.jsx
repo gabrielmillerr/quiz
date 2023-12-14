@@ -8,9 +8,9 @@ import { avancarQuestao, voltarQuestao, enviarResposta } from '../../redux/reduc
 
 export function QuizScreen() {
   const dispatch = useDispatch();
-  const indexQuestaoAtual = useSelector((state) => state.quiz.indexQuestaoAtual);
-  const questions = useSelector((state) => state.quiz.questions);
-  const respostas = useSelector((state) => state.quiz.respostas)
+  
+  const quiz = useSelector((state) => state.quizStates.quiz)
+  const respostas = useSelector((state) => state.quizStates.respostas)
 
   const handleAnswer = (answer, pergunta) => {
     const respotaPergunta = {
@@ -35,13 +35,13 @@ export function QuizScreen() {
   return (
     <CardQuiz>
       <Container>
-        {questions.questoes[indexQuestaoAtual] && (
-          <div className='quiz' key={indexQuestaoAtual}>
-            <h2 className="quiz_pergunta">{questions.questoes[indexQuestaoAtual].pergunta}</h2>
-            {questions.questoes[indexQuestaoAtual].opcoes.map((opcao, opcaoIndex) => (
+        {quiz.questions.questoes[quiz.indexQuestaoAtual] && (
+          <div className='quiz' key={quiz.indexQuestaoAtual}>
+            <h2 className="quiz_pergunta">{quiz.questions.questoes[quiz.indexQuestaoAtual].pergunta}</h2>
+            {quiz.questions.questoes[quiz.indexQuestaoAtual].opcoes.map((opcao, opcaoIndex) => (
               <Button
                 key={opcaoIndex}
-                evento={ () => handleAnswer(opcao, questions.questoes[indexQuestaoAtual]) }
+                evento={ () => handleAnswer(opcao, quiz.questions.questoes[quiz.indexQuestaoAtual]) }
                 classe={ opcaoRespondida(opcao._id) ? "respondida" : "" }
                 title={opcao.opcao}
               >
@@ -60,7 +60,7 @@ export function QuizScreen() {
            evento={ handleAvancarQuestao }
          />
         </div>
-        <span className="perguntaIndex">Questão {indexQuestaoAtual + 1} de 5.</span>
+        <span className="perguntaIndex">Questão {quiz.indexQuestaoAtual + 1} de 5.</span>
       </Container>
     </CardQuiz>
   );

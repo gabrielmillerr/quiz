@@ -25,9 +25,9 @@ export function ScoresScreen() {
       <Container>
         <h1 className="titulo">Pontuação</h1>
         {resultados.map((user, userIndex) => (
-          <div className="resultado">
+          <div className="resultado" key={user._id}>
             <p>{userIndex + 1}</p>
-            <p key={user._id}> Nome: { user.nome } </p>
+            <p> Nome: { user.nome } </p>
             <p>Acertos: { user.acertos }</p>
           </div>
         ) )}

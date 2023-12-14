@@ -1,12 +1,11 @@
 import { createSlice } from "@reduxjs/toolkit"
 
-
 const initialState = {
-  nome: "",
-  paginaAtual: "inicio",
-  indexQuestaoAtual: 0,
-  score: 0,
-  questions: [], 
+  quiz: {
+    paginaAtual: "inicio",
+    indexQuestaoAtual: 0,
+    questions: [], 
+  },
   respostas: {
     nome: "",
     acertos: 0,
@@ -19,42 +18,42 @@ const quizSlice = createSlice({
   initialState,
   reducers: {
     alterarPagina: (state, action) => {
-      state.paginaAtual = action.payload
+      state.quiz.paginaAtual = action.payload
     },
     avancarQuestao: (state) => {
-      state.indexQuestaoAtual = state.indexQuestaoAtual + 1;
+      state.quiz.indexQuestaoAtual = state.quiz.indexQuestaoAtual + 1;
     },
     voltarQuestao: state => {
-      if(state.indexQuestaoAtual) {
-        state.indexQuestaoAtual = state.indexQuestaoAtual - 1;
+      if(state.quiz.indexQuestaoAtual) {
+        state.quiz.indexQuestaoAtual = state.quiz.indexQuestaoAtual - 1;
       }
     },
     enviarResposta: (state, action) => {
       const { answers, pergunta } = action.payload;
-      const { nome } = state;
-
+      
       if(answers.resposta) {
-        state.score += 1
+        state.respostas.acertos += 1
       }
 
-      state.respostas.nome = nome
-      state.respostas.acertos = state.score
-      state.respostas.answers.push({
+      state.respostas = {
+        nome: state.respostas.nome,
+        answers: [...state.respostas.answers, {
           _perguntaId: pergunta._id,
           _opcaoID: answers._id
-      });
+        }]
+      }
 
-      state.indexQuestaoAtual = state.indexQuestaoAtual + 1;
+      state.quiz.indexQuestaoAtual = state.quiz.indexQuestaoAtual + 1;
       
-      if(state.indexQuestaoAtual >= 5) {
-        state.paginaAtual = "resultado"
+      if(state.quiz.indexQuestaoAtual >= 5) {
+        state.quiz.paginaAtual = "resultado"
       }
     },
     setQuestions: (state, action) => {
-      state.questions = action.payload;
+      state.quiz.questions = action.payload;
     },
     setNome: (state, action) => {
-      state.nome = action.payload;
+      state.respostas.nome = action.payload;
     }
   }
 })

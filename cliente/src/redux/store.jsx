@@ -3,6 +3,6 @@ import quizReducer from "./reducer/quizReducer";
 
 export const store = configureStore({
   reducer: {
-    quiz: quizReducer,
+    quizStates: quizReducer,
   }
 });

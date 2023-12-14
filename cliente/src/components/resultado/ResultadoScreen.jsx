@@ -9,9 +9,9 @@ import { alterarPagina } from '../../redux/reducer/quizReducer'
 
 export function ResultadoScreen() {
   const dispatch = useDispatch();
-  const respostas = useSelector((state) => state.quiz.respostas);
-  const score = useSelector((state) => state.quiz.score)
-
+  
+  const respostas = useSelector((state) => state.quizStates.respostas);
+  
   const enviarResposta = async () => {
     try {
       const resposta = await axios.post('http://localhost:3333/resultado', [respostas]);
@@ -29,12 +29,12 @@ export function ResultadoScreen() {
     <CardQuiz>
       <Container>
         <h2 className="quiz_titulo">Resultado</h2>
-        <p>Parabéns <span className="quiz_nome">{respostas.nome}</span> acertou {score} de 5 quetões!</p>
+        <p>Parabéns <span className="quiz_nome">{respostas.nome}</span> acertou {respostas.acertos} de 5 quetões!</p>
         <Button
           title={ "Salvar Resultado" }
           evento={ enviarResposta }
         />
-        <button onClick={entrarScoresScreen}>Visualizar Score</button>
+        <button onClick={entrarScoresScreen}>Visualizar Pontuações</button>
       </Container>
     </CardQuiz>
   );
